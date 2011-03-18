@@ -1,0 +1,50 @@
+# — SETTINGS — #
+background		no
+update_interval		0.5
+cpu_avg_samples		2
+net_avg_samples		2
+double_buffer		yes
+no_buffers		yes
+text_buffer_size	1024
+
+# — WINDOW — #
+own_window		yes
+own_window_type		override	
+own_window_transparent	yes
+own_window_hints	undecorate,sticky,skip_taskbar,skip_pager,below
+
+# — BORDER — #
+border_inner_margin	1
+border_outer_margin	1
+
+# — SIZE — #
+minimum_size		125
+maximum_width		125
+
+# — ALIGNMENT — #
+alignment		bl
+gap_x			610
+gap_y			10
+
+# — GRAPHIC — #
+draw_shades		no
+draw_outline		no
+draw_borders		no
+draw_graph_borders	no
+
+# — TEXT — #
+use_xft			yes
+xftfont			Dejavu Sans:size=7:condensed
+xftalpha		0.8
+uppercase		no
+override_utf8_locale	yes
+
+# — Colors — #
+default_color		DEFAULT
+color1			COLOR1
+
+TEXT
+${voffset 3}${font PizzaDude Bullets:size=14}r${font}${goto 25}${voffset -7}${downspeed eth1}
+${goto 25}${voffset -1}${font Dejavu Sans:size=8:condensed:bold}$color1${totaldown eth1}$font${goto 92}${voffset -12}${downspeedgraph eth1 15,30}$color
+${font PizzaDude Bullets:size=14}v${font}${goto 25}${voffset -7}${upspeed eth1}${alignr 5}
+${goto 25}${voffset -1}${font Dejavu Sans:size=8:condensed:bold}$color1${totalup eth1}$font${goto 92}${voffset -12}${upspeedgraph eth1 15,30}$color${voffset -27}

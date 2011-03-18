@@ -1,0 +1,111 @@
+#!/bin/sh
+# $Id$
+
+if [ "$1" == "gnome" ]; then
+ exec /usr/bin/gnome-session
+ exit
+fi
+
+# So Openoffice doesn't look like crap
+export OOO_FORCE_DESKTOP=gnome
+
+# Just in case we're restarting
+killall dwmstatus.pl
+killall ssh-agent
+killall remind
+
+# Setup SSH Environment
+eval `/usr/bin/ssh-agent`
+
+if test -f /usr/bin/gtk-led-askpass # Debian
+then
+	SSH_ASKPASS=/usr/bin/gtk-led-askpass < /dev/null
+fi
+
+# Launch D-bus session
+if which dbus-launch >/dev/null && test -z "$DBUS_SESSION_BUS_ADDRESS"; then
+       eval `dbus-launch --sh-syntax --exit-with-session`
+fi
+
+# Get gnome settings imported
+gnome-settings-daemon 2> ~/.x.log &
+
+Urxvtd() {
+    # Cleanup old urxvtd files since we randomize hostname
+    rm -rf ${HOME}/.rxvt-unicode-*
+
+    # Run urxvt daemon
+    [ -x /usr/bin/urxvtd ] && \
+        urxvtd --opendisplay --fork
+}
+
+Xrdb() {
+    [ -f ${HOME}/.Xdefaults.common -a -x /usr/bin/xrdb ] && \
+	xrdb -merge ${HOME}/.Xdefaults.common
+	xrdb -merge ${HOME}/.Xdefaults.color
+}
+
+Xmodmap() {
+    [ -f ${HOME}/.xmodmap -a -x /usr/bin/xmodmap ] && \
+        xmodmap ${HOME}/.xmodmap
+}
+
+Xbindkeys() {
+    [ -f ${HOME}/.xbindkeysrc -a -x /usr/bin/xbindkeys ] && \
+        xbindkeys
+}
+
+NautPrep() {
+# Disable Nautilus desktop.
+/usr/bin/gconftool-2 -s -t bool /apps/nautilus/preferences/show_desktop false 
+# Do not let Nautilus set the background image.
+/usr/bin/gconftool-2 -s -t bool /desktop/gnome/background/draw_background true 
+# Make Nautilus use spatial mode, should start-up quicker.
+/usr/bin/gconftool-2 -s -t bool /apps/nautilus/preferences/always_use_browser false 
+# Make Nautilus show the advanced permissions dialog 
+/usr/bin/gconftool-2 -s -t bool /apps/nautilus/preferences/show_advanced_permissions true 
+# Disable pulseaudio, whatever
+/usr/bin/gconftool-2 -s -t bool /desktop/gnome/sound/enable_esd false
+# Setup rhythmbox so it uses libre.fm
+/usr/bin/gconftool-2 -s -t string /apps/rhythmbox/audioscrobbler/scrobbler_url "http://turtle.libre.fm"
+# Fire up a nice wallpaper for us to use
+~/bin/change-background &
+}
+
+Reminders() {
+remind -z -k'gmessage -center -wrap -timeout 5 "`echo '%s' | tr -d "\" | tr -d "*" | tr -d "\r" `" &' ~/.reminders &
+}
+
+# Setup for WM Environment
+NautPrep
+Xmodmap
+Xrdb
+Xbindkeys
+Urxvtd
+Reminders
+
+# Some Fan Control
+#i8kmon -d -a &
+
+# Setup Colors properly
+#nvidia-settings -l
+
+# Fire up statusbar daemon
+./bin/dwmstatus > .dwmstatus &
+
+# Fire up Window Manager
+while true; do
+  xsetroot -name "`tail -n 1 .dwmstatus`"
+  sleep 1
+done &
+
+# Fire up tail and wireless monitors / logs
+./bin/launchmonitors
+
+# Because we like to share our musak (start it late too)
+sh -c "sleep 300; exec tangerine 2> ~/.x.log &" &
+
+# Launch Dwm in a while loop, so quit in dwm only restarts it.  To kill off dwm, "killall startx"
+while true; do 
+  exec ck-launch-session /home/cmauch/Source/dwm-5.7.2/dwm-${COLORSHADE} 2> ~/.x.log
+done;

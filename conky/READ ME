@@ -1,0 +1,18 @@
+To start the conky type ALT+F2 and then "conky -d -c *path*/conkylogo". You have to extract the folder in the archive somewhere and replace *path* with the real path.
+
+Before starting the conky you have to change the path of the lua configuration file in conkylogo:
+
+# -- Lua Load -- #
+lua_load *path*/ringslogo.lua
+
+Under the TEXT area you have to change the paths of the two images (ubuntu.png and ubuntured.png).
+Then in the ringslogo.lua file you have to change the path of conkyBanshee.py.
+
+Once you've done these passages, if you want conky to display the current status of a music player which is not banshee, you have to modify the ringslogo.lua file. Search these two lines:
+
+name='execi ',
+arg='2 *path*/conkyBanshee.py --datatype=PP --nounknownoutput',
+
+And replace "conkyBanshee.py" with "conkyRhythmbox.py", or another music player supported by Conky Hardcore (see "https://launchpad.net/~conkyhardcore/+archive/ppa/+packages").
+
+

@@ -1,0 +1,199 @@
+# ~/.bashrc: executed by bash(1) for non-login shells.
+# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
+# for examples
+
+# If not running interactively, don't do anything
+[ -z "$PS1" ] && return
+
+# don't put duplicate lines in the history. See bash(1) for more options
+# ... or force ignoredups and ignorespace
+HISTCONTROL=ignoredups:ignorespace
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=1000
+HISTFILESIZE=5000
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# set variable identifying the chroot you work in (used in the prompt below)
+if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
+
+PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w \$ '
+
+# If this is an xterm set the title to user@host:dir
+case "$TERM" in
+xterm*|rxvt*)
+    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\H: \w \a\]$PS1"
+    ;;
+*)
+    ;;
+esac
+
+COLORSCHEME=mono
+COLORSHADE=dark
+
+if [ $COLORSCHEME == "color" ]; then
+ # enable color support of ls
+ if [ "$TERM" != "dumb" ]; then
+     eval "`dircolors -b`"
+ fi
+ # set a fancy prompt
+ if [ -f ~/dotfiles/bash/colorprompt.sh ]; then
+     source ~/dotfiles/bash/colorprompt.sh
+ fi
+ # enable color support for various tools
+ alias ls='ls --color=auto -hFs'
+ alias grep='grep --color=auto'
+ alias fgrep='fgrep --color=auto'
+ alias egrep='egrep --color=auto'
+
+# Colorscheme is NOT color!
+
+else
+ if [ -f ~/dotfiles/bash/monoprompt.sh ]; then
+     source ~/dotfiles/bash/monoprompt.sh
+ fi
+ alias ls='ls --color=never -hFs'
+ alias grep='grep --color=never'
+ alias fgrep='fgrep --color=never'
+ alias egrep='egrep --color=never'
+fi
+
+# Because it looks better on light backgrounds
+# with a monoprompt
+if [ $COLORSHADE == "light" ]; then
+     source ~/bin/monoprompt.sh
+     alias ls='ls --color=never -hFs'
+     alias grep='grep --color=never'
+     alias fgrep='fgrep --color=never'
+     alias egrep='egrep --color=never'
+     # Just in case, to ensure normal console looks good
+     if [ $TERM == "linux" ]; then
+       setterm -foreground black -background white -store
+     fi
+fi
+
+alias ls='ls --color=never -hFs'
+alias grep='grep --color=never'
+alias fgrep='fgrep --color=never'
+alias egrep='egrep --color=never'
+
+# some more ls aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+# Alias definitions.
+# You may want to put all your additions into a separate file like
+# ~/.bash_aliases, instead of adding them here directly.
+# See /usr/share/doc/bash-doc/examples in the bash-doc package.
+
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+    . /etc/bash_completion
+fi
+
+# Use Vi Shortcuts in bash (awesome!)
+set -o vi
+
+# Keychain Manager, sweet tool from gentoo
+#if [ -f ~/.ssh/id_rsa ]; then
+# /usr/bin/keychain ~/.ssh/id_rsa -q
+# [[ -f $HOME/.keychain/$HOSTNAME-sh ]] && . $HOME/.keychain/$HOSTNAME-sh
+# [[ -f $HOME/.keychain/$HOSTNAME-sh-gpg ]] && . $HOME/.keychain/$HOSTNAME-sh-gpg
+#fi
+
+#if [ -f ~/.ssh/id_dsa ]; then
+# /usr/bin/keychain ~/.ssh/id_dsa -q
+# [[ -f $HOME/.keychain/$HOSTNAME-sh ]] && . $HOME/.keychain/$HOSTNAME-sh
+# [[ -f $HOME/.keychain/$HOSTNAME-sh-gpg ]] && . $HOME/.keychain/$HOSTNAME-sh-gpg
+#fi
+
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# set variable identifying the chroot you work in (used in the prompt below)
+if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
+
+# define a starting line in our bash_history so we can save only new lines 
+# and make sure that we append to a history file.
+export CURBASHSTART=`grep -v "^[ \t]*$" $HISTFILE | wc -l | awk '{print $1}'`  CURBASHDATE=`date`
+shopt -s cmdhist histappend
+
+# Use Vi Shortcuts in bash (awesome!)
+set -o vi
+
+# Fire up X if not allready running
+pgrep X &>/dev/null; [ $? = 1 ] && startx
+
+# Keychain Manager, sweet tool from gentoo
+if [ -f ~/.ssh/id_rsa ]; then
+ /usr/bin/keychain ~/.ssh/id_rsa -q
+ [[ -f $HOME/.keychain/$HOSTNAME-sh ]] && . $HOME/.keychain/$HOSTNAME-sh
+ [[ -f $HOME/.keychain/$HOSTNAME-sh-gpg ]] && . $HOME/.keychain/$HOSTNAME-sh-gpg
+fi
+
+if [ -f ~/.ssh/id_dsa ]; then
+ /usr/bin/keychain ~/.ssh/id_dsa -q
+ [[ -f $HOME/.keychain/$HOSTNAME-sh ]] && . $HOME/.keychain/$HOSTNAME-sh
+ [[ -f $HOME/.keychain/$HOSTNAME-sh-gpg ]] && . $HOME/.keychain/$HOSTNAME-sh-gpg
+fi
+
+# Interactivity Improvements
+if [ "$PS1" ] ; then  
+   mkdir -p -m 0700 /dev/cgroup/cpu/user/$$ > /dev/null 2>&1
+   echo $$ > /dev/cgroup/cpu/user/$$/tasks
+   echo "1" > /dev/cgroup/cpu/user/$$/notify_on_release
+fi
+
+# The maximum resident set size (200 meg)
+ulimit -S -m 200000
+# The  maximum  amount  of  virtual memory available to the shell (500 meg)
+ulimit -S -v 500000
+
+# Check for mplayer fifo, if it doesn't exist - create it
+if [ ! -p /tmp/mplayer.fifo ]; then
+ mkfifo /tmp/mplayer.fifo
+fi
+
+# Function to create a bash history archive
+archive_history()
+{
+    HISTORYOLD=${HISTFILE}.archive
+    CURTIME=`date`
+    CURTTY=`tty`
+    if  [ x$HISTDUMPPED = x ]; then
+      echo "#-${HOSTNAME}-- ${CURBASHDATE} - ${CURTIME} ($CURTTY) ----" >>   $HISTORYOLD
+      history $(($HISTCMD-${CURBASHSTART-0})) | sed -e 's/^[ ]*[0-9][0-9]* [ ]*//g'  >> $HISTORYOLD
+      export HISTDUMPPED=1
+    fi
+}
+
+# On exit, be sure to run function
+exit ()
+{
+   archive_history
+   builtin exit
+}
+
+
+trap 'archive_history' EXIT

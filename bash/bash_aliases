@@ -1,0 +1,16 @@
+alias svig='svk propedit svn:ignore'
+alias svid='svk propset svn:keywords "Id Revision"'
+alias svst='svk stat -q | grep . | grep -v ^Perf'
+alias svnot='svk stat | grep "\?" | grep -v ^Perf'
+
+alias lst='ls -l -ctF | head -10'
+alias top3='/usr/bin/top -b -n 1 | tail +7 | head -n 4'
+
+alias perldoc='perldoc -t'
+alias vess='vim -u /usr/share/vim/vim72/macros/less.vim'
+
+alias cacheck='(twidge lsrecent -asu; twidge lsreplies -asu) | less'
+alias capost='twidge update' 
+
+alias fixfanstyle='sed -i -e 's/\<head\>/\<head\>\ \<link\ rel\=\"stylesheet\"\ type\=\"text\/css\"\ href\=\".style.css\"''
+alias mp='mplayer -vo xv -fs -zoom -stop-xscreensaver -nobps -alang en -input file=/tmp/mplayer.fifo'

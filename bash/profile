@@ -1,0 +1,36 @@
+# the default umask is set in /etc/profile; for setting the umask
+# for ssh logins, install and configure the libpam-umask package.
+#umask 022
+
+# set PATH so it includes user's private bin if it exists
+if [ -d ~/bin ] ; then
+    PATH=~/bin:~/bin/bash:~/bin/perl:"${PATH}"
+fi
+
+# Set colorscheme (or set default)
+if [ -f ~/dotfiles/bash/colorscheme ]; then
+    source ~/dotfiles/bash/colorscheme
+else
+    COLORSCHEME="color"
+    COLORSHADE="dark"
+fi
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
+
+# History Controls
+HISTCONTROL=ignoredups # Ignore duplicate entries in history
+IGNOREEOF=10           # Disable Clt-D exits
+CVS_RSH="ssh"
+EDITOR="/usr/bin/vim"
+PERL5LIB="/home/cpm/perl"
+
+export PATH MANPATH HISTCONTROL IGNOREEOF COLORSCHEME COLORSHADE CVS_RSH EDITOR PERL5LIB
+
+# if running bash
+if [ -n "$BASH_VERSION" ]; then
+    # include .bashrc if it exists
+    if [ -f "$HOME/.bashrc" ]; then
+	source "$HOME/.bashrc"
+    fi
+fi

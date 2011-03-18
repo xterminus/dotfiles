@@ -1,0 +1,168 @@
+/* General Formatting - DO NOT TOUCH UNCOMMENTED LINES UNLESS YOU KNOW WHAT YOU ARE DOING! */
+
+
+
+body {
+/* Background Picture */
+	background: url('bg.png');
+/* Font Color */
+	color: #111;
+/* Font Type */
+	font-family: Sans, sans-serif;
+}
+
+a {
+/* Link Color */
+	color: #111;
+/* Link Size */
+	font-size: 11px;
+/* Link Text Decoration - underline, overline, etc. */
+	text-decoration: none;
+}
+
+#one {
+	position: absolute;
+/* Block 01 Position from top edge */
+	top: 100px;
+/* Block 01 Position from left edge */
+	left: 100px;
+	padding-left: 5px;
+/* Block 01 Left Border */
+	border-left: 1px solid #111;
+}
+
+#two {
+	position: absolute;
+/* Block 02 Position from top edge */
+	top: 100px;
+/* Block 02 Position from left edge */
+	left: 220px;
+	padding-left: 5px;
+/* Block 02 Left Border */
+	border-left: 1px solid #111;
+}
+
+#three {
+	position: absolute;
+/* Block 03 Position from top edge */
+	top: 100px;
+/* Block 03 Position from left edge */
+	left: 340px;
+	padding-left: 5px;
+/* Block 03 Left Border */
+	border-left: 1px solid #111;
+}
+
+#four {
+	position: absolute;
+/* Block 04 Position from top edge */
+	top: 100px;
+/* Block 04 Position from left edge */
+	left: 460px;
+	padding-left: 5px;
+/* Block 04 Left Border */
+	border-left: 1px solid #111;
+}
+
+.number {
+/* Number Font Size */
+	font-size: 50px;
+}
+
+.title {
+/* Title Font Size */
+	font-size: 14px;
+	margin-bottom: 20px;
+}
+
+#google {
+	position: absolute;
+/* Search Block Position from top edge */
+	top: 80px;
+/* Search Block Position from left edge */
+	left: 650px;
+/* Search Block Left Border */
+	width: 300px;
+	height: 53px;
+	padding-top: 27px;
+	padding-left: 5px;	
+}
+
+#wikipedia {
+	position: absolute;
+/* Search Block Position from top edge */
+	top: 120px;
+/* Search Block Position from left edge */
+	left: 650px;
+/* Search Block Left Border */
+	width: 300px;
+	height: 53px;
+	padding-top: 27px;
+	padding-left: 5px;	
+}
+
+#fanfiction {
+	position: absolute;
+/* Search Block Position from top edge */
+	top: 160px;
+/* Search Block Position from left edge */
+	left: 650px;
+/* Search Block Left Border */
+	width: 300px;
+	height: 53px;
+	padding-top: 27px;
+	padding-left: 5px;	
+}
+
+
+#lastfm {
+	position: absolute;
+/* Search Block Position from top edge */
+	top: 200px;
+/* Search Block Position from left edge */
+	left: 650px;
+/* Search Block Left Border */
+	width: 300px;
+	height: 53px;
+	padding-top: 27px;
+	padding-left: 5px;	
+}
+
+input {
+/* Searchbox Border */
+	border: 1px solid #111;
+/* Searchbox Background Color */
+	background: #555;
+/* Searchbox Text Color */
+	color: #111;
+}
+
+
+/* JS Formatting - DO NOT TOUCH UNLESS YOU KNOW WHAT YOU ARE DOING! */
+
+div#menu {
+	width: 100px;
+	height: 80px;
+	overflow: hidden;
+}
+
+div#menut {
+	width: 100px;
+	height: 80px;
+	overflow: hidden;
+}
+
+div#menuth {
+	width: 100px;
+	height: 80px;
+	overflow: hidden;
+}
+
+div#menuf {
+	width: 100px;
+	height: 80px;
+	overflow: hidden;
+}
+
+/* cc BY-NC-SA License :: k3ttc4r :: 2008 :: http://k3ttc4r.deviantart.com */
+/* background by Alexander-GG :: http://alexander-gg.deviantart.com */

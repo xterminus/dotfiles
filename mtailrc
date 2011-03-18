@@ -1,0 +1,32 @@
+files: /.*access_log/
+    colors:
+       /^.*$/                        red
+       /^[^ ]* /                     brightred
+       /"[A-Z]+ ([^ ]*) /            brightmagenta
+       /^[^"]+"[^"]+"[^"]+"([^"]+)"/ magenta
+       /^.*derek.*$/                 brightblack
+       /^.*server-status.*$/         brightblack
+
+files: /syslog|messages|everything/
+    colors:
+       /^.*$/                                               blue
+       /^... .. (..:..:..)/                                 cyan
+       /^... .. ..:..:.. ([a-z]+)/                          brightblue
+       /^... .. ..:..:.. [a-z]+ ([^:]+:)/                   green
+       /^... .. ..:..:.. [a-z]+ ([^[]+)\[/                  brightmagenta
+       /^... .. ..:..:.. [a-z]+ [^[]+(\[[0-9]+\]:)/         brightblack
+       /^... .. ..:..:.. [a-z]+ [^[]+\[([0-9]+)\]/          magenta
+       /^... .. ..:..:.. [a-z]+ PAM_pwdb[^:]+: \(([^(]*)\)/ brightred
+       /([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)/                   yellow
+       /^... .. ..:..:.. [a-z]+ named[^:]+: Cleaned.*$/     brightblack
+       /^... .. ..:..:.. [a-z]+ named[^:]+: USAGE.*$/       brightblack
+       /^... .. ..:..:.. [a-z]+ named[^:]+: NSTATS.*$/      brightblack
+       /^... .. ..:..:.. [a-z]+ named[^:]+: XSTATS.*$/      brightblack
+       /last message repeated.*/                            green
+       /last message repeated ([0-9]+)/                     brightgreen
+       /^... .. ..:..:.. [a-z]+ (kernel:)/                  brightgreen
+       /to=([^,]+),/                                        green
+       /from=([^,]+),/                                      green
+       /session opened for user ([a-z]+)/                   red
+       /session closed for user ([a-z]+)/                   red
+       /session opened for user [a-z]+ by ([a-z]+)/         red
