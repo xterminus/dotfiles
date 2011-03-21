@@ -40,8 +40,8 @@ uppercase 		no
 override_utf8_locale 	yes
 
 # — Colors — #
-default_color 		000
-color1 			000
+default_color 		FFF
+color1 			DDD
 
 TEXT
 ${font  Poky:size=20}P${voffset -3}${font Impact:size=16}$color1${goto 30}${cpu cpu0}${goto 60}${color}%${color1}${goto 90}${font}${voffset -10}${top name 1}${alignr}${top cpu 1}$color

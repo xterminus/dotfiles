@@ -40,8 +40,8 @@ uppercase		no
 override_utf8_locale	yes
 
 # — Colors — #
-default_color		000
-color1			000
+default_color		FFF
+color1			DDD
 
 TEXT
 ${font Poky:size=20}y${voffset -13}${goto 30}${font}Root${goto 70}${voffset -7}${font Poky:size=20}y${voffset -10}${font}${goto 97}Media

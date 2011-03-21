@@ -43,8 +43,8 @@ uppercase		no
 override_utf8_locale	yes
 
 # — Colors — #
-default_color		000
-color1			000
+default_color		FFF
+color1			DDD
 
 
 TEXT

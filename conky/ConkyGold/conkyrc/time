@@ -43,8 +43,8 @@ uppercase 		no
 override_utf8_locale 	yes
 
 # — Colors — #
-default_color 		000
-color1 			000
+default_color 		FFF
+color1 			DDD
 
 TEXT
 ${font Impact:size=20}${goto 5}$color1${time %I:%M:%S}$color${goto 104}${font Impact:size=10}${time %a %d %b %Y}${font}
