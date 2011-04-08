@@ -1,0 +1,27 @@
+syntax on
+set     nomodeline
+set     ww=<,>,[,]
+
+filetype on
+filetype indent on
+filetype plugin on
+
+
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+set autoindent
+
+nmap > :bn<CR>
+nmap < :bp<CR>
+
+let spell_auto_type     = "html,tex,txt,none"
+let spell_executable    = "aspell"
+let spell_insert_mode   = 0
+let spell_language_list = "de_DE,en_US"
+
+let psc_fontface        = "plain"
+
+autocmd FileType perl,html,css,php,htm colorscheme slate
+autocmd FileType html,css,php,htm set noexpandtab tabstop=4
