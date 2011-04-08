@@ -112,18 +112,19 @@ fi
 # Use Vi Shortcuts in bash (awesome!)
 set -o vi
 
-# Keychain Manager, sweet tool from gentoo
-#if [ -f ~/.ssh/id_rsa ]; then
-# /usr/bin/keychain ~/.ssh/id_rsa -q
-# [[ -f $HOME/.keychain/$HOSTNAME-sh ]] && . $HOME/.keychain/$HOSTNAME-sh
-# [[ -f $HOME/.keychain/$HOSTNAME-sh-gpg ]] && . $HOME/.keychain/$HOSTNAME-sh-gpg
-#fi
+# Keychain Manager, sweet ssh tool from gentoo, also
+# provided by debian/ubuntu 'keychain' package
+if [ -f ~/.ssh/id_rsa ]; then
+ /usr/bin/keychain ~/.ssh/id_rsa -q
+ [[ -f $HOME/.keychain/$HOSTNAME-sh ]] && . $HOME/.keychain/$HOSTNAME-sh
+ [[ -f $HOME/.keychain/$HOSTNAME-sh-gpg ]] && . $HOME/.keychain/$HOSTNAME-sh-gpg
+fi
 
-#if [ -f ~/.ssh/id_dsa ]; then
-# /usr/bin/keychain ~/.ssh/id_dsa -q
-# [[ -f $HOME/.keychain/$HOSTNAME-sh ]] && . $HOME/.keychain/$HOSTNAME-sh
-# [[ -f $HOME/.keychain/$HOSTNAME-sh-gpg ]] && . $HOME/.keychain/$HOSTNAME-sh-gpg
-#fi
+if [ -f ~/.ssh/id_dsa ]; then
+ /usr/bin/keychain ~/.ssh/id_dsa -q
+ [[ -f $HOME/.keychain/$HOSTNAME-sh ]] && . $HOME/.keychain/$HOSTNAME-sh
+ [[ -f $HOME/.keychain/$HOSTNAME-sh-gpg ]] && . $HOME/.keychain/$HOSTNAME-sh-gpg
+fi
 
 
 # make less more friendly for non-text input files, see lesspipe(1)
