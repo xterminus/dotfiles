@@ -39,9 +39,6 @@ xterm*|rxvt*)
     ;;
 esac
 
-COLORSCHEME=mono
-COLORSHADE=dark
-
 if [ $COLORSCHEME == "color" ]; then
  # enable color support of ls
  if [ "$TERM" != "dumb" ]; then
@@ -72,7 +69,7 @@ fi
 # Because it looks better on light backgrounds
 # with a monoprompt
 if [ $COLORSHADE == "light" ]; then
-     source ~/bin/monoprompt.sh
+     source ~/dotfiles/bash/monoprompt.sh
      alias ls='ls --color=never -hFs'
      alias grep='grep --color=never'
      alias fgrep='fgrep --color=never'
@@ -126,7 +123,6 @@ if [ -f ~/.ssh/id_dsa ]; then
  [[ -f $HOME/.keychain/$HOSTNAME-sh-gpg ]] && . $HOME/.keychain/$HOSTNAME-sh-gpg
 fi
 
-
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
@@ -139,25 +135,6 @@ fi
 # and make sure that we append to a history file.
 export CURBASHSTART=`grep -v "^[ \t]*$" $HISTFILE | wc -l | awk '{print $1}'`  CURBASHDATE=`date`
 shopt -s cmdhist histappend
-
-# Use Vi Shortcuts in bash (awesome!)
-set -o vi
-
-# Fire up X if not allready running
-pgrep X &>/dev/null; [ $? = 1 ] && startx
-
-# Keychain Manager, sweet tool from gentoo
-if [ -f ~/.ssh/id_rsa ]; then
- /usr/bin/keychain ~/.ssh/id_rsa -q
- [[ -f $HOME/.keychain/$HOSTNAME-sh ]] && . $HOME/.keychain/$HOSTNAME-sh
- [[ -f $HOME/.keychain/$HOSTNAME-sh-gpg ]] && . $HOME/.keychain/$HOSTNAME-sh-gpg
-fi
-
-if [ -f ~/.ssh/id_dsa ]; then
- /usr/bin/keychain ~/.ssh/id_dsa -q
- [[ -f $HOME/.keychain/$HOSTNAME-sh ]] && . $HOME/.keychain/$HOSTNAME-sh
- [[ -f $HOME/.keychain/$HOSTNAME-sh-gpg ]] && . $HOME/.keychain/$HOSTNAME-sh-gpg
-fi
 
 # Interactivity Improvements
 if [ "$PS1" ] ; then  
