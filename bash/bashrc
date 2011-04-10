@@ -39,6 +39,14 @@ xterm*|rxvt*)
     ;;
 esac
 
+# Set colorscheme (or set default)
+if [ -f ~/dotfiles/bash/colorscheme ]; then
+   source ~/dotfiles/bash/colorscheme
+else
+   COLORSCHEME="color"
+   COLORSHADE="dark"
+fi
+
 if [ $COLORSCHEME == "color" ]; then
  # enable color support of ls
  if [ "$TERM" != "dumb" ]; then
