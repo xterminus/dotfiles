@@ -55,7 +55,7 @@ xterm*|rxvt*|Eterm*|screen*)
     if [ -f ~/bin/termtitle ]; then
      local TitleBar="\033]0;`~/bin/termtitle`\007"
     else
-     local TitleBar="\033]0;:: terminal \l on host \H in ${PWD} ::\007"
+     local TitleBar="\033]0; terminal \l on host \H in ${PWD} \007"
     fi
     ;;
 *)

@@ -88,11 +88,6 @@ if [ $COLORSHADE == "light" ]; then
      fi
 fi
 
-alias ls='ls --color=never -hFs'
-alias grep='grep --color=never'
-alias fgrep='fgrep --color=never'
-alias egrep='egrep --color=never'
-
 # some more ls aliases
 alias ll='ls -alF'
 alias la='ls -A'

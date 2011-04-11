@@ -4,18 +4,18 @@
 test -z "`pgrep conky`" || killall -9 conky
 
 # Normal Text Color
-#DEFAULT="000"		# Black
-DEFAULT="FFF"		# White
+DEFAULT="000"		# Black
+#DEFAULT="FFF"		# White
 #DEFAULT="4C7DB0"	# Blue
 
 # Highlight Text Color
 #COLOR1="4C7DB0"	# Blue
-#COLOR1="6C9541"        # Green
-#COLOR1="DDD"
-COLOR1="EEE"		# White
+#COLOR1="6C9541"    # Green
+#COLOR1="EEE"		# White
 #COLOR1="AAA"		# Light Grey
 #COLOR1="555"		# Grey
 #COLOR1="333"		# Dark Grey
+COLOR1="000"        # Black
 #COLOR1="302704" 	# Brown
 #COLOR1="a21212" 	# Red
 #COLOR1="D1940C"	# Gold
