@@ -1,6 +1,4 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
+# bashrc for Charles Mauch (cmauch@gmail.com)
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
@@ -39,7 +37,7 @@ xterm*|rxvt*)
     ;;
 esac
 
-# Set colorscheme (or set default)
+# Set the colorscheme (or set default)
 if [ -f ~/dotfiles/bash/colorscheme ]; then
    source ~/dotfiles/bash/colorscheme
 else
@@ -61,10 +59,8 @@ if [ $COLORSCHEME == "color" ]; then
  alias grep='grep --color=auto'
  alias fgrep='fgrep --color=auto'
  alias egrep='egrep --color=auto'
-
-# Colorscheme is NOT color!
-
 else
+ # Colorscheme is NOT color!
  if [ -f ~/dotfiles/bash/monoprompt.sh ]; then
      source ~/dotfiles/bash/monoprompt.sh
  fi
@@ -75,7 +71,7 @@ else
 fi
 
 # Because it looks better on light backgrounds
-# with a monoprompt
+# with a monoprompt, overrides previous color setting
 if [ $COLORSHADE == "light" ]; then
      source ~/dotfiles/bash/monoprompt.sh
      alias ls='ls --color=never -hFs'
@@ -94,10 +90,6 @@ alias la='ls -A'
 alias l='ls -CF'
 
 # Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
@@ -119,7 +111,6 @@ if [ -f ~/.ssh/id_rsa ]; then
  [[ -f $HOME/.keychain/$HOSTNAME-sh ]] && . $HOME/.keychain/$HOSTNAME-sh
  [[ -f $HOME/.keychain/$HOSTNAME-sh-gpg ]] && . $HOME/.keychain/$HOSTNAME-sh-gpg
 fi
-
 if [ -f ~/.ssh/id_dsa ]; then
  /usr/bin/keychain ~/.ssh/id_dsa -q
  [[ -f $HOME/.keychain/$HOSTNAME-sh ]] && . $HOME/.keychain/$HOSTNAME-sh
@@ -128,16 +119,6 @@ fi
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
-fi
-
-# define a starting line in our bash_history so we can save only new lines 
-# and make sure that we append to a history file.
-export CURBASHSTART=`grep -v "^[ \t]*$" $HISTFILE | wc -l | awk '{print $1}'`  CURBASHDATE=`date`
-shopt -s cmdhist histappend
 
 # Interactivity Improvements
 if [ "$PS1" ] ; then  
@@ -155,6 +136,12 @@ ulimit -S -v 500000
 if [ ! -p /tmp/mplayer.fifo ]; then
  mkfifo /tmp/mplayer.fifo
 fi
+
+# define a starting line in our bash_history so we can save only new lines 
+# and make sure that we append to a history file.
+export CURBASHSTART=`grep -v "^[ \t]*$" $HISTFILE | wc -l | awk '{print $1}'`  CURBASHDATE=`date`
+shopt -s cmdhist histappend
+
 
 # Function to create a bash history archive
 archive_history()
