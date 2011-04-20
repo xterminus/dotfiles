@@ -7,8 +7,6 @@
 " Verbatim copying and distribution of this entire file is permitted in any
 " medium without royalty provided this header is preserved.
 
-colorscheme slate
-
 setlocal cindent expandtab tabstop=4 shiftwidth=4
 setlocal textwidth=80
 setlocal cinkeys=0{,0},!^F,o,O,e " cink: Perl-friendly reindent keys

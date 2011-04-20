@@ -1,4 +1,13 @@
 syntax on
+colorscheme solarized
+if has('gui_running')
+    set background=light
+else
+    set background=light
+endif
+let g:solarized_termcolors=256
+let g:solarized_termtrans =1
+
 set     nomodeline
 set     ww=<,>,[,]
 
@@ -23,5 +32,4 @@ let spell_language_list = "de_DE,en_US"
 
 let psc_fontface        = "plain"
 
-autocmd FileType perl,html,css,php,htm colorscheme slate
 autocmd FileType html,css,php,htm set noexpandtab tabstop=4
