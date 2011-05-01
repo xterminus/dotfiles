@@ -3,7 +3,7 @@ colorscheme solarized
 if has('gui_running')
     set background=light
 else
-    set background=light
+    set background=dark
 endif
 let g:solarized_termcolors=256
 let g:solarized_termtrans =1
