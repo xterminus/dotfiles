@@ -3,8 +3,16 @@
 # Kill Conky If Running
 test -z "`pgrep conky`" || killall -9 conky
 
+# Solarize Dark BG
+#DEFAULT="FFFFD7"
+#COLOR1="D7D7AF"
+
+# Solarize Light BG
+DEFAULT="586e75"
+COLOR1="657b83"
+
 # Normal Text Color
-DEFAULT="000"		# Black
+#DEFAULT="000"		# Black
 #DEFAULT="FFF"		# White
 #DEFAULT="4C7DB0"	# Blue
 
@@ -15,7 +23,7 @@ DEFAULT="000"		# Black
 #COLOR1="AAA"		# Light Grey
 #COLOR1="555"		# Grey
 #COLOR1="333"		# Dark Grey
-COLOR1="000"        # Black
+#COLOR1="000"        # Black
 #COLOR1="302704" 	# Brown
 #COLOR1="a21212" 	# Red
 #COLOR1="D1940C"	# Gold

@@ -25,7 +25,7 @@ maximum_width 		195
 default_bar_size 	150 4
 
 # — ALIGNMENT — #
-alignment 		tl
+alignment 		bl
 gap_x 			60
 gap_y 			10
 

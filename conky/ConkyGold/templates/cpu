@@ -22,7 +22,7 @@ minimum_size 		185
 maximum_width 		185
 
 # — ALIGNMENT — #
-alignment 		tl
+alignment 		bl
 gap_x 			770
 gap_y 			10
 
