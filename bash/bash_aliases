@@ -5,7 +5,7 @@ alias perldoc='perldoc -t'
 alias vess='vim -u /usr/share/vim/vim72/macros/less.vim'
 
 alias fixfanstyle='sed -i -e 's/\<head\>/\<head\>\ \<link\ rel\=\"stylesheet\"\ type\=\"text\/css\"\ href\=\".style.css\"''
-alias mp='mplayer -vo xv -fs -zoom -stop-xscreensaver -nobps -alang en -input file=/tmp/mplayer.fifo'
+alias mp='mplayer -vo gl -fs -zoom -stop-xscreensaver -nobps -alang en -input file=/tmp/mplayer.fifo'
 
 alias get='steadyflow add'
 alias gwget='steadyflow add'
