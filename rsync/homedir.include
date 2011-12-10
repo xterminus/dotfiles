@@ -1,0 +1,36 @@
+/.config
+/.gconf
+/.gconfd
+/.gitconfig
+/.gnome
+/.gnome2
+/.gnome2_private
+/.fonts
+/.gnucash
+/.gnupg
+/.icons
+/.ikiwiki
+/.irssi
+/.jdownloader
+/.keychain
+/.local
+/.lyrics
+/.mplayer
+/.screenrc
+/.ssh
+/.themes
+# Special Handling of XUL Stuff
+#/.mozilla
+#/.thunderbird
+# Symlink Farm
+/.bash_aliases
+/.bash_logout
+/.bashrc
+/.conky
+/.dircolors
+/.vim
+/.vimrc
+/.Xdefaults
+/.Xresources
+
+
