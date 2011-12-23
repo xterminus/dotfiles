@@ -106,26 +106,21 @@ set -o vi
 
 # Keychain Manager, sweet ssh tool from gentoo, also
 # provided by debian/ubuntu 'keychain' package
-if [ -f ~/.ssh/id_rsa ]; then
- /usr/bin/keychain ~/.ssh/id_rsa -q
- [[ -f $HOME/.keychain/$HOSTNAME-sh ]] && . $HOME/.keychain/$HOSTNAME-sh
- [[ -f $HOME/.keychain/$HOSTNAME-sh-gpg ]] && . $HOME/.keychain/$HOSTNAME-sh-gpg
-fi
-if [ -f ~/.ssh/id_dsa ]; then
- /usr/bin/keychain ~/.ssh/id_dsa -q
- [[ -f $HOME/.keychain/$HOSTNAME-sh ]] && . $HOME/.keychain/$HOSTNAME-sh
- [[ -f $HOME/.keychain/$HOSTNAME-sh-gpg ]] && . $HOME/.keychain/$HOSTNAME-sh-gpg
-fi
+if [ -f /usr/bin/keychain ]; then
+ if [ -f ~/.ssh/id_rsa ]; then
+  /usr/bin/keychain ~/.ssh/id_rsa -q
+  [[ -f $HOME/.keychain/$HOSTNAME-sh ]] && . $HOME/.keychain/$HOSTNAME-sh
+  [[ -f $HOME/.keychain/$HOSTNAME-sh-gpg ]] && . $HOME/.keychain/$HOSTNAME-sh-gpg
+ fi
+ if [ -f ~/.ssh/id_dsa ]; then
+  /usr/bin/keychain ~/.ssh/id_dsa -q
+  [[ -f $HOME/.keychain/$HOSTNAME-sh ]] && . $HOME/.keychain/$HOSTNAME-sh
+  [[ -f $HOME/.keychain/$HOSTNAME-sh-gpg ]] && . $HOME/.keychain/$HOSTNAME-sh-gpg
+ fi
+fi 
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
-# Interactivity Improvements
-if [ "$PS1" ] ; then  
-   mkdir -p -m 0700 /dev/cgroup/cpu/user/$$ > /dev/null 2>&1
-   echo $$ > /dev/cgroup/cpu/user/$$/tasks
-   echo "1" > /dev/cgroup/cpu/user/$$/notify_on_release
-fi
 
 # The maximum resident set size (200 meg)
 ulimit -S -m 200000
