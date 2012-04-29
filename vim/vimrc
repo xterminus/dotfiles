@@ -1,12 +1,8 @@
-syntax on
-colorscheme solarized
-if has('gui_running')
-    set background=light
-else
-    set background=dark
-endif
-let g:solarized_termcolors=256
-let g:solarized_termtrans =1
+syntax off
+"colorscheme solarized
+"set background=light
+"let g:solarized_termcolors=256
+"let g:solarized_termtrans =1
 
 set     nomodeline
 set     ww=<,>,[,]

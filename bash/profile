@@ -7,6 +7,10 @@ if [ -d ~/bin ] ; then
     PATH=~/bin:~/bin/bash:~/bin/perl:"${PATH}"
 fi
 
+if [ -d ~/src/ANDROID/platform-tools ] ; then
+    PATH=~/src/ANDROID/platform-tools:"${PATH}"
+fi
+
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
 
