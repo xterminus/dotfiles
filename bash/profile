@@ -7,10 +7,6 @@ if [ -d ~/bin ] ; then
     PATH=~/bin:~/bin/bash:~/bin/perl:"${PATH}"
 fi
 
-if [ -d ~/src/ANDROID/platform-tools ] ; then
-    PATH=~/src/ANDROID/platform-tools:"${PATH}"
-fi
-
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
 
@@ -20,8 +16,9 @@ IGNOREEOF=10           # Disable Clt-D exits
 CVS_RSH="ssh"
 EDITOR="/usr/bin/vim"
 PERL5LIB="/home/cpm/perl"
+CHROMIUM_USER_FLAGS="--disk-cache-size=300000000"
 
-export PATH MANPATH HISTCONTROL IGNOREEOF CVS_RSH EDITOR PERL5LIB
+export PATH MANPATH HISTCONTROL IGNOREEOF CVS_RSH EDITOR PERL5LIB CHROMIUM_USER_FLAGS
 
 # if running bash
 if [ -n "$BASH_VERSION" ]; then

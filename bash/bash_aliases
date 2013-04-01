@@ -8,3 +8,11 @@ alias fixfanstyle='sed -i -e 's/\<head\>/\<head\>\ \<link\ rel\=\"stylesheet\"\ 
 
 alias get='steadyflow add'
 alias gwget='steadyflow add'
+
+alias avolu='adb shell input keyevent 24'
+alias avold='adb shell input keyevent 25'
+
+alias 3gain='mp3gain -s i -T -a -p'
+alias again='aacgain -s i -a -p'
+alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
+alias vi='vim'

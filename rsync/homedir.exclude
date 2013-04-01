@@ -1,6 +1,10 @@
 /.*
 /temp
+/Box
 /Dropbox
+/chrome-os
+/Media*
+/Shared*
 /Ubuntu One
 /Music
 /Videos

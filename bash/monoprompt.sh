@@ -88,7 +88,7 @@ else
   newPWD="$(echo -n $PWD)"
 fi
 
-PS1="\n${TitleBar}${ResetColours}:: \u@\h.${DOMAIN}(\!)\n[\D{%H}:\D{%M}:\D{%S}] \$: ${newPWD} >:\$(smiley) "
+PS1="\n${ResetColours}:: \u@\h.${DOMAIN}(\!)\n[\D{%H}:\D{%M}:\D{%S}] \$: ${newPWD} >:\$(smiley) "
 PS2="${ResetColours}>>> "
 
 }
