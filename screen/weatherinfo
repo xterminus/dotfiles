@@ -1,0 +1,43 @@
+#!/usr/bin/perl
+# $Id: $
+# Author: Charles Mauch (charles@mauch.name)
+# Description: Weather Info for screen sessions
+# Legal: (c) 2005 Charles Mauch, released under the terms of the GPLv2
+#
+# Possible arguments  rvalues
+# place
+# temperature_celsius
+# temperature_fahrenheit
+# humidity
+# conditions
+# wind_direction
+# wind_milesperhour
+# wind_kilometersperhour
+# pressure
+# updated
+# clouds
+# dewpoint_celsius
+# dewpoint_fahrenheit
+# moonphase
+# moonrise
+# moonset
+# sunrise
+# sunset
+# visibility_miles
+# visibility_kilometers
+
+use Weather::Underground;
+
+$weather = Weather::Underground->new(
+	place =>	   "98402",
+	debug =>	   0,
+	cache_file =>      "/tmp/weather.cache",
+        cache_max_age =>   500
+) || die "Error, could not create new weather object: $@\n";
+
+$arrayref = $weather->get_weather() || die "Error, calling get_weather() failed: $@\n";
+
+print "$arrayref->[0]->{temperature_fahrenheit}F $arrayref->[0]->{conditions}, Wind $arrayref->[0]->{wind_direction} at $arrayref->[0]->{wind_milesperhour}/mph";
+
+
+

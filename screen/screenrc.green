@@ -1,0 +1,54 @@
+# $Id: $
+# Author: Charles Mauch (charles@mauch.name)
+#         based on configs posted by phrakture (http://phraktured.net)
+# Description: Screen configuration file
+# Legal: (c) 2006 Charles Mauch, released under the terms of the GPLv2
+
+deflogin on
+autodetach on
+startup_message off
+shell bash
+activity "active: %n (%t) [%w:%s]"
+bell "bell: %n (%t) [%w:%s]^G"
+vbell on
+vbell_msg "[[[ ding ]]]"
+defscrollback 10000
+nonblock on
+defutf8 on
+msgwait 2
+
+# only Shift+k to kill - prevent accidents
+bind k
+bind ^k
+bind K kill
+
+# Ctrl+Up, Ctrl+Dn automagically enter copy mode and scroll
+#bindkey "^[[A" eval copy "stuff ^b"
+#bindkey "^[[B" eval copy "stuff ^f"
+#bindkey -m "^[[A" eval "stuff ^b"
+#bindkey -m "^[[B" eval "stuff ^f"
+
+# Ctrl+Left, Ctrl+Right cycle through windows
+# NOTE: may cause clobbering problems
+#bindkey "^[[C" eval next
+#bindkey "^[[D" eval prev
+
+# Make the xterm scroller work in screen, also works
+# with mouse scrollwheel
+termcapinfo rxvt ti@:te@
+termcapinfo rxvt 'hs:ts=\E]2;:fs=\007:ds=\E]2;screen\007' 
+
+# Use the \ key instead of "C-a" for commands
+# escape \\\\
+
+# Here comes the pain...
+caption always "%{=b dw}:%{-b dw}:%{=b dk}[ %{-b dw}%{-b dg}$USER%{-b dw}@%{-b dg}%H %{=b dk}] [ %= %?%{-b dg}%-Lw%?%{+b dk}(%{+b dw}%n:%t%{+b dk})%?(%u)%?%{-b dw}%?%{-b dg}%+Lw%? %{=b dk}]%{-b dw}:%{+b dw}:" 
+
+# %?%-Lw%?%n/%t%?(%u)%?%?%+Lw%? 
+# {-b kw} %?%-Lw%?%{+b kb}[%n:%t]%?(%u)%?%{-b kw}%?%+Lw%?"
+
+backtick 1 300 300 $HOME/dotfiles/screen/weatherinfo 
+backtick 2 5 5 $HOME/dotfiles/screen/meminfo
+hardstatus alwayslastline "%{+b dw}:%{-b dw}:%{+b dk}[%{-b dg} %0C:%s%a %{=b dk}]-[ %{-b dw}Load%{+b dk}:%{-b dg}%l %{+b dk}] [%{-b dg}%2`%{+b dk}] %=[ %{-b dg}%1`%{=b dk} ]%{-b dw}:%{+b dw}:%<"
+
+sorendition "-b dw"
