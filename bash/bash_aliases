@@ -6,13 +6,11 @@ alias vess='vim -u /usr/share/vim/vim72/macros/less.vim'
 
 alias fixfanstyle='sed -i -e 's/\<head\>/\<head\>\ \<link\ rel\=\"stylesheet\"\ type\=\"text\/css\"\ href\=\".style.css\"''
 
-alias get='steadyflow add'
-alias gwget='steadyflow add'
-
-alias avolu='adb shell input keyevent 24'
-alias avold='adb shell input keyevent 25'
 
 alias 3gain='mp3gain -s i -T -a -p'
 alias again='aacgain -s i -a -p'
 alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
 alias vi='vim'
+
+alias wifibad='rfkill block 0'
+alias wifiok='rfkill unblock 0'

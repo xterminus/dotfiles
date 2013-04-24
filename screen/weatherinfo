@@ -27,17 +27,31 @@
 # visibility_kilometers
 
 use Weather::Underground;
+open STDERR, ">/dev/null";                              # Supress STDERR messages
+`rm /tmp/weather.cache` if -z "/tmp/weather.cache";     # Remove bad cache
 
-$weather = Weather::Underground->new(
-	place =>	   "98402",
-	debug =>	   0,
-	cache_file =>      "/tmp/weather.cache",
+$SIG{ALRM} = sub { print "Weather Info Timeout\n"; die; };
+alarm(2); # 2 Seconds to run, then die
+
+while(1){
+
+    $weather = Weather::Underground->new(
+	    place =>	   "98402",
+	    debug =>	   0,
+	    cache_file =>      "/tmp/weather.cache",
         cache_max_age =>   500
-) || die "Error, could not create new weather object: $@\n";
+    ) || sub { print "Weather Error: $@\n"; die; };
 
-$arrayref = $weather->get_weather() || die "Error, calling get_weather() failed: $@\n";
+    $arrayref = $weather->get_weather() || sub { print "Weather Get Error: $@\n"; die; };
 
-print "$arrayref->[0]->{temperature_fahrenheit}F $arrayref->[0]->{conditions}, Wind $arrayref->[0]->{wind_direction} at $arrayref->[0]->{wind_milesperhour}/mph";
+    print "$arrayref->[0]->{temperature_fahrenheit}F $arrayref->[0]->{conditions}, Wind $arrayref->[0]->{wind_direction} at $arrayref->[0]->{wind_milesperhour}/mph";
+    exit; # Break loop, we printed good info.
+
+}
+alarm(0);
+
+
+
 
 
 

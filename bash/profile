@@ -16,7 +16,7 @@ IGNOREEOF=10           # Disable Clt-D exits
 CVS_RSH="ssh"
 EDITOR="/usr/bin/vim"
 PERL5LIB="/home/cpm/perl"
-CHROMIUM_USER_FLAGS="--disk-cache-size=300000000"
+CHROMIUM_USER_FLAGS="--disk-cache-size=300000000 --ppapi-flash-path=/usr/lib/PepperFlash/libpepflashplayer.so --ppapi-flash-version=11.7.700.169"
 
 export PATH MANPATH HISTCONTROL IGNOREEOF CVS_RSH EDITOR PERL5LIB CHROMIUM_USER_FLAGS
 

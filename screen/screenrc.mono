@@ -47,8 +47,12 @@ caption always "%{=b dk}:%{-b dk}:%{=b dk}[ %{-b dk}%{-b dk}screen on $USER%{-b 
 # %?%-Lw%?%n/%t%?(%u)%?%?%+Lw%? 
 # {-b kw} %?%-Lw%?%{+b kb}[%n:%t]%?(%u)%?%{-b kw}%?%+Lw%?"
 
-backtick 1 300 300 $HOME/dotfiles/screen/weatherinfo 
-backtick 2 3 3 $HOME/dotfiles/screen/meminfo
+#backtick 1 0 0 $HOME/dotfiles/screen/netinfo 5 wifi0
+#backtick 2 3 3 $HOME/dotfiles/screen/meminfo
+#
+backtick 1 30 30 $HOME/dotfiles/screen/weatherinfo 
+backtick 2 5 5 $HOME/dotfiles/screen/wifi
+
 hardstatus alwayslastline "%{+b dk}:%{-b dk}:%{+b dk}[%{-b dk} %0C:%s%a %{=b dk}]-[ %{-b dk}Load%{+b dk}:%{-b dk}%l %{+b dk}] [%{-b dk}%2`%{+b dk}] %=[ %{-b dk}%1`%{=b dk} ]%{-b dk}:%{+b dk}:%<"
 
 sorendition "-b dk"
@@ -58,5 +62,3 @@ screen -t bash autorestart bash
 screen -t top autorestart top
 screen -t journal autorestart screenlog
 screen -t xsession autorestart xsession-errors
-screen -t weechat autorestart weechat-curses
-screen -t wicd autorestart wicd-curses

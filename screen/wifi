@@ -1,0 +1,211 @@
+#!/usr/bin/perl
+
+use 5.010;
+
+# Capture errors as normal output
+open STDERR, '>&STDOUT';
+
+# Devices to Monitor
+my $eth_device   = "lan0";
+my $wifi_device  = "wifi0";
+my $usb_device   = "jmac-usbwifi";
+my @devices      = ( $eth_device, $usb_device, $wifi_device );
+
+# Used to list/discover ap's
+my $open = 0;
+my $closed = 0;
+
+# Main Program
+# Grab first active device
+# -> wired, then usb, then wifi checked - first one active is grabbed.
+my $active_device = determine_active_device();
+
+# Detect device status
+#  only print the following output if ethernet and usb are inactive (wifi is left)
+if ( $active_device ne ( $eth_device || $usb_device ) ) {
+
+    # Detect Wifi rfkill status
+    if ( get_rfkill_status() eq "yes" ) {
+        print "WiFi Disabled\n";
+        exit;
+    }
+
+    if ( ! $active_device ) {
+        # No ip address, so lets just count wifinetworks available
+        print "Networks \(" . &FindAPs( $wifi_device) . "\)\n";
+        exit;
+    }
+   
+    # Wifi looks connected so far, so lets slurp data!
+    my ( $active_ip, $active_bcast, $active_mask ) = get_ip_info ( $active_device );
+    my ( $essid, $rate, $apmac, $encryption, $security_mode, $power_management, $mode, $frequency, $quality, $signal, $noise ) = get_wifi_info ( $active_device );
+
+    if ( $rate == ( 1 or 5 or null ) ) {
+        print "$essid\" \(NEEDS RECONNECT)\n";
+        exit;
+    } 
+
+
+    print " \"$essid\" $signal"."dBm @"."$rate Mb\/s ";
+
+
+} elsif ( $active_device ne $wifi_device ) {
+    # Looks like we have a wired connection
+    
+    my ( $active_ip, $active_bcast, $active_mask ) = get_ip_info ( $active_device );
+
+    print "Physical \($active_device\) $active_ip \n";
+
+} else {
+    # Something is wrong
+    print "something is wrong\n";
+}
+
+
+exit;
+
+# Loop through devices, if it's got an ip it's up (hopefully)
+sub determine_active_device {
+
+    foreach my $device ( @devices )  {
+    my $ifconfig = `ifconfig $device 2>/dev/null`;
+        if ($ifconfig =~/inet\ (\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/gi) {
+            return $device;
+            last;
+        }
+    }
+}
+
+sub get_rfkill_status {
+    my $rfkill_cmd = `rfkill list wifi | head -3 | grep "Hard"`; 
+    $rfkill_cmd =~ /.*Hard\ blocked: (.*)/; 
+    my $killed = $1;
+  return $killed;
+}
+
+
+# Get ip data
+sub get_ip_info {
+
+    my ( $ip, $bcast, $mask );
+    my $ifconfigdata = `ifconfig $1`;
+
+    if ($ifconfigdata =~/inet (\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/gi) {
+        $ip = $1;
+    } else {
+        $ip = '<no IP-Address>';
+    }
+    if ($ifconfigdata =~/Bcast:(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/gi) {
+        $bcast = $1;
+    }
+    if ($ifconfigdata =~/Mask:(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/gi) {
+        $mask = $1;
+    }
+
+  return ( $ip, $bcast, $mask );
+}
+
+# Get Wifi Specific Stuff
+sub get_wifi_info {
+
+    my ( $essid, $rate, $apmac, $encryption, $security_mode, $power_management, $mode, $frequency, $quality, $signal, $noise );
+    my $iwconfigdata = `iwconfig $1 2>/dev/null`;
+
+    # If we are wired, forget it.
+    if ($iwconfigdata =~/no\ wireless\ extensions./gi) {
+
+      return ( "wired" );
+
+    } else {
+
+        if ($iwconfigdata =~/ESSID:\"(.*)\"/gi) {
+            $essid = $1;
+        }
+        if ($iwconfigdata =~/Bit\ Rate\=(.*)\ Mb/gi) {
+            $rate = $1;
+        }
+        if ($iwconfigdata =~/Access Point:\s+(\w\w:\w\w:\w\w:\w\w:\w\w:\w\w)/gi) {
+            $apmac = $1;
+        }
+        if ($iwconfigdata =~/Encryption key:(.*?)\s/gi) {
+            $encryption = $1;
+        }
+        if ($iwconfigdata =~/Security mode:(.*?)\s/gi) {
+            $security_mode = $1;
+        }
+        if ($iwconfigdata =~/Power Management( period)?:(.*?)\s/gi) {
+            $power_management = $2;
+        }
+
+        if ($iwconfigdata =~/Mode:\s*(Managed|Ad\-hoc|Auto|Master)\s*/i) {
+            $mode = $1;
+        }
+        if ($iwconfigdata =~/Frequency:\s*([\w\.]+)\s*/i) {
+            $frequency = $1;
+        }
+        if ($iwconfigdata =~/Quality\=(.*?)\s/i) {
+            $quality = $1;
+        }
+        if ($iwconfigdata =~/Signal level\=(.*?)\sdBm/ig) {
+            $signal = $1;
+        }
+        if (iwconfigdata =~/Noise level\=(.*?)\s*dBm/i) {
+            $noise = $1;
+        }
+
+      return ( $essid, $rate, $apmac, $encryption, $security_mode, $power_management, $mode, $frequency, $quality, $signal, $noise ); 
+    }
+
+}
+
+## find access points for unconnected wifi counts
+sub FindAPs {
+    my $apoints = `/sbin/iwlist $1 scanning 2> /dev/null`;
+    my @spoints = split /Cell/, $apoints;
+
+    my $j=0;
+    undef(@Address);
+    undef(@Encryption);
+
+    ## parse found APs
+    for (my $i=0; $i<=$#spoints; $i++) {
+
+        if ($spoints[$i] =~/Address:\s*(\w\w:\w\w:\w\w:\w\w:\w\w:\w\w)/i) {
+            $j++;
+            $Address[$j] = $1;
+
+            if ($spoints[$i] =~/Encryption key:\s*(on|off)\s*/i) {
+                $Encryption[$j] = $1;
+            }
+        }
+    }
+
+    ## show found APs
+    &ListOpenAPs;
+    &ListClosedAPs;
+    my $string;
+    if ( $open ne "0" ) {
+        $string = "<b> $open Open</b> / $closed Encrypted ";
+    } else {
+        $string = "$closed Encrypted";
+    }
+  return $string;
+}
+
+
+## list APs
+sub ListClosedAPs {
+    for (my $j=1; $j<=$#Address; $j++) {
+	next if ( $Encryption[$j] ne "on" );
+        $closed++;
+    }
+}
+
+
+## list APs
+sub ListOpenAPs {
+    for (my $j=1; $j<=$#Address; $j++) {
+	next if ( $Encryption[$j] eq "on" );
+        $open++;
+    }
+}
