@@ -3,26 +3,21 @@
 ! |-- unicode-rxvt settings --|
 urxvt*saveLines:        32767
 urxvt*scrollBar:        false
-urxvt*loginShell:       false
-urxvt*utmpInhibit:	true
+urxvt*loginShell:       true
+urxvt*utmpInhibit:	    true
 urxvt*internalBorder:   0
-urxvt*geometry:		140x50+40+40
+urxvt*geometry:		    191x52+15+15
 urxvt*termName:         rxvt-unicode
 urxvt*inheritPixmap:	true
-urxvt*shading:		-99
-urxvt*fading:		50
-urxvt*blurRadius:	20
-urxvt*font:		-*-*-medium-*-*-*-14-*-*-*-*-*-*-*
-urxvt*backgroundPixmap: /home/cmauch/Pictures/urxvtbackground.jpg
-urxvt*blendType:	allanon
-urxvt*urlLauncher:      firefox
+urxvt*shading:		    -99
+urxvt*fading:		    50
+urxvt*blurRadius:	    20
+urxvt*font:		        -*-*-medium-*-*-*-14-*-*-*-*-*-*-*
+urxvt*blendType:	    allanon
+urxvt*urlLauncher:      google-chrome 
 urxvt.searchable-scrollback: CM-s
 urxvt*matcher.button:	1
-urxvt*cursorColor: 	yellow
+urxvt*cursorColor: 	    yellow
 urxvt*cursorColor2: 	white
 urxvt*pointerColor: 	yellow
-!urxvt*backgroundPixmap: /home/cmauch/Pictures/urxvtbackground.jpg;:root
-!urxvt*perl-lib: 	/home/cmauch/dotfiles/X/urxvt
-!urxvt*perl-lib:         /usr/lib/urxvt/perl
-!urxvt*perl-ext-common:  selection,option-popup,selection-popup,readline,matcher,searchable-scrollback,pwsafe
 

@@ -40,6 +40,13 @@ if ( $active_device ne ( $eth_device || $usb_device ) ) {
     my ( $active_ip, $active_bcast, $active_mask ) = get_ip_info ( $active_device );
     my ( $essid, $rate, $apmac, $encryption, $security_mode, $power_management, $mode, $frequency, $quality, $signal, $noise ) = get_wifi_info ( $active_device );
 
+    $essid = "Tacoma Public Library" if ( $essid eq "TPL" );
+    $essid = "John Mac\'s Clearwire Internet" if ( $essid eq "jmac" );
+    $essid = "Jon Mauchs Click! Internet" if ( $essid eq "4818" );
+    $essid = "Wayne Mauchs Clearwire Internet" if ( $essid eq "waynenet" );
+    $essid = "Tully\'s Coffee Free WiFi" if ( $essid eq "Tullys Free WiFi" );
+    $essid = "Starbucks\'s Coffee Free WiFi" if ( $essid eq "attwifi" );
+
     if ( $rate == ( 1 or 5 or null ) ) {
         print "$essid\" \(NEEDS RECONNECT)\n";
         exit;

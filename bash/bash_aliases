@@ -14,3 +14,4 @@ alias vi='vim'
 
 alias wifibad='rfkill block 0'
 alias wifiok='rfkill unblock 0'
+alias mp='mplayer -af volume=10.1:0'
