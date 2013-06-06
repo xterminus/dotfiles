@@ -25,7 +25,7 @@
 # sunset
 # visibility_miles
 # visibility_kilometers
-
+exit;
 use Weather::Underground;
 open STDERR, ">/dev/null";                              # Supress STDERR messages
 `rm /tmp/weather.cache` if -z "/tmp/weather.cache";     # Remove bad cache

@@ -8,7 +8,7 @@ open STDERR, '>&STDOUT';
 # Devices to Monitor
 my $eth_device   = "lan0";
 my $wifi_device  = "wifi0";
-my $usb_device   = "jmac-usbwifi";
+my $usb_device   = "usb0";
 my @devices      = ( $eth_device, $usb_device, $wifi_device );
 
 # Used to list/discover ap's
@@ -32,7 +32,7 @@ if ( $active_device ne ( $eth_device || $usb_device ) ) {
 
     if ( ! $active_device ) {
         # No ip address, so lets just count wifinetworks available
-        print "Networks \(" . &FindAPs( $wifi_device) . "\)\n";
+        print " WiFi Networks - " . &FindAPs( $wifi_device ) . " \n";
         exit;
     }
    
@@ -41,11 +41,12 @@ if ( $active_device ne ( $eth_device || $usb_device ) ) {
     my ( $essid, $rate, $apmac, $encryption, $security_mode, $power_management, $mode, $frequency, $quality, $signal, $noise ) = get_wifi_info ( $active_device );
 
     $essid = "Tacoma Public Library" if ( $essid eq "TPL" );
-    $essid = "John Mac\'s Clearwire Internet" if ( $essid eq "jmac" );
+    $essid = "John Mac\'s Clearwire Internet" if ( $essid eq "Jmac" );
     $essid = "Jon Mauchs Click! Internet" if ( $essid eq "4818" );
     $essid = "Wayne Mauchs Clearwire Internet" if ( $essid eq "waynenet" );
     $essid = "Tully\'s Coffee Free WiFi" if ( $essid eq "Tullys Free WiFi" );
     $essid = "Starbucks\'s Coffee Free WiFi" if ( $essid eq "attwifi" );
+    $essid = "Jeff\'s Wifi" if ( $essid eq "dlink" );
 
     if ( $rate == ( 1 or 5 or null ) ) {
         print "$essid\" \(NEEDS RECONNECT)\n";
@@ -131,7 +132,7 @@ sub get_wifi_info {
         if ($iwconfigdata =~/Bit\ Rate\=(.*)\ Mb/gi) {
             $rate = $1;
         }
-        if ($iwconfigdata =~/Access Point:\s+(\w\w:\w\w:\w\w:\w\w:\w\w:\w\w)/gi) {
+        if ($iwconfigdata =~/Access\sPoint:\s(\w\w:\w\w:\w\w:\w\w:\w\w:\w\w)/goi) {
             $apmac = $1;
         }
         if ($iwconfigdata =~/Encryption key:(.*?)\s/gi) {
@@ -167,7 +168,8 @@ sub get_wifi_info {
 
 ## find access points for unconnected wifi counts
 sub FindAPs {
-    my $apoints = `/sbin/iwlist $1 scanning 2> /dev/null`;
+    my $checkdevice = shift;
+    my $apoints = `iwlist $checkdevice scanning 2> /dev/null`;
     my @spoints = split /Cell/, $apoints;
 
     my $j=0;
@@ -176,6 +178,8 @@ sub FindAPs {
 
     ## parse found APs
     for (my $i=0; $i<=$#spoints; $i++) {
+        
+        next if ($spoints[$i] =~/ESSID:\"hpsetup\"/g); # Drop, hpsetup is never a good network to connect to
 
         if ($spoints[$i] =~/Address:\s*(\w\w:\w\w:\w\w:\w\w:\w\w:\w\w)/i) {
             $j++;
@@ -192,9 +196,9 @@ sub FindAPs {
     &ListClosedAPs;
     my $string;
     if ( $open ne "0" ) {
-        $string = "<b> $open Open</b> / $closed Encrypted ";
+        $string = "$closed Closed / $open Public";
     } else {
-        $string = "$closed Encrypted";
+        $string = "$closed Closed";
     }
   return $string;
 }
